@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/Bienvenidaa">
+
+    <fragment
+        android:id="@+id/Bienvenidaa"
+        android:name="com.example.appandroid.ui.Bienvenida"/>
+        <action
+            android:id="@+id/Bienvenidaa_to_InicioSesion"
+            app:destination="@id/InicioSesion" />
+        <action
+            android:id="@+id/Bienvenidaa_to_RegistrarUsuario"
+            app:destination="@id/RegistrarUsuario" />
+
+    <fragment
+        android:id="@+id/InicioSesion"
+        android:name="com.example.appandroid.ui.InicioSesion"/>
+
+    <fragment
+        android:id="@+id/RegistrarUsuario"
+        android:name="com.example.appandroid.ui.RegistrarUsuario"/>
+
+</navigation>

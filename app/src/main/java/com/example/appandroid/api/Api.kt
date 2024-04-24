@@ -1,4 +1,5 @@
 package com.example.appandroid.api
+import kotlinx.coroutines.*
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import okhttp3.*
@@ -21,15 +22,23 @@ class Api {
         return Json.parseToJsonElement(jsonString) as JsonObject
     }
 
-    fun log_usuario(usuario: JsonObject): JsonObject{
+    suspend fun log_usuario(usuario: JsonObject) : JsonObject {
         val usr = formatJson_toRequestBody(usuario)
         val request = Request.Builder().url("$URL_IP/usuarios/log").post(usr).build()
-        return formatResponse_toJson(cliente.newCall(request).execute())
+        val response = withContext(Dispatchers.IO) {
+            cliente.newCall(request).execute()
+        }
+        return formatResponse_toJson(response)
     }
 
-    fun add_usuario(usuario: JsonObject): JsonObject{
+
+
+    suspend fun add_usuario(usuario: JsonObject): JsonObject{
         val usr = formatJson_toRequestBody(usuario)
         val request = Request.Builder().url("$URL_IP/usuarios/add").post(usr).build()
-        return formatResponse_toJson(cliente.newCall(request).execute())
+        val response = withContext(Dispatchers.IO) {
+            cliente.newCall(request).execute()
+        }
+        return formatResponse_toJson(response)
     }
 }

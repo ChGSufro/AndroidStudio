@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph.xml"
-    app:startDestination="@id/Bienvenidaa">
+    app:startDestination="@id/Bienvenida">
 
     <fragment
-        android:id="@+id/Bienvenidaa"
+        android:id="@+id/Bienvenida"
         android:name="com.example.appandroid.ui.Bienvenida"/>
         <action
-            android:id="@+id/Bienvenidaa_to_InicioSesion"
+            android:id="@+id/Bienvenida_to_InicioSesion"
             app:destination="@id/InicioSesion" />
         <action
             android:id="@+id/Bienvenidaa_to_RegistrarUsuario"
@@ -18,9 +18,34 @@
     <fragment
         android:id="@+id/InicioSesion"
         android:name="com.example.appandroid.ui.InicioSesion"/>
+        <action
+            android:id="@+id/InicioSesion_to_log"
+            app:destination="@id/Variables" />
 
     <fragment
         android:id="@+id/RegistrarUsuario"
         android:name="com.example.appandroid.ui.RegistrarUsuario"/>
+
+    <fragment
+        android:id="@+id/Conexión"
+        android:name="com.example.appandroid.ui.Conexion"/>
+        <action
+            android:id="@+id/Conexión_to_Variables"
+            app:destination="@id/Variables" />
+        <action
+            android:id="@+id/Conexión_to_Bienvenida"
+            app:destination="@id/Bienvenida"
+            app:popUpToInclusive="true"/>
+
+    <fragment
+        android:id="@+id/Variables"
+        android:name="com.example.appandroid.ui.Variables"/>
+        <action
+            android:id="@+id/Variables_to_Conexion"
+            app:destination="@id/Conexión" />
+        <action
+            android:id="@+id/Variables_to_Bienvenida"
+            app:destination="@id/Bienvenida"
+            app:popUpToInclusive="true"/>
 
 </navigation>

@@ -17,15 +17,13 @@ import okio.IOException
 
 import com.example.appandroid.app.SessionManager as SM
 
-/**
- * TODO: document your custom view class.
- */
 class RegistrarUsuario : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val view = inflater.inflate(R.layout.sample_registrar_usuario, container, false)
 
         val usuario = view?.findViewById<androidx.appcompat.widget.AppCompatEditText>(R.id.Usuario)?.text
@@ -40,19 +38,15 @@ class RegistrarUsuario : Fragment() {
                 try {
                     val response = SM().RegistrarUsuario(usuario.toString(), nombre.toString(), contraseña.toString(), confcontraseña.toString())
                     withContext(Dispatchers.Main){
-                        Toast.makeText(context, response, Toast.LENGTH_SHORT).show()
                         alerta?.text = response
                         if (response == "Usuario agregado."){
                             findNavController().popBackStack()
+                            Toast.makeText(context, response, Toast.LENGTH_SHORT).show()
                         }
                     }
                 } catch (error: Exception) {
                     withContext(Dispatchers.Main){
                         alerta?.text = error.message
-                    }
-                } catch (error: IOException) {
-                    withContext(Dispatchers.Main){
-                        alerta?.text = "Error de conexión."
                     }
                 }
             }

@@ -19,4 +19,18 @@
         <attr name="exampleColor" />
         <attr name="exampleDrawable" />
     </declare-styleable>
+
+    <declare-styleable name="Conección">
+        <attr name="exampleString" />
+        <attr name="exampleDimension" />
+        <attr name="exampleColor" />
+        <attr name="exampleDrawable" />
+    </declare-styleable>
+
+    <declare-styleable name="Variables">
+        <attr name="exampleString" />
+        <attr name="exampleDimension" />
+        <attr name="exampleColor" />
+        <attr name="exampleDrawable" />
+    </declare-styleable>
 </resources>

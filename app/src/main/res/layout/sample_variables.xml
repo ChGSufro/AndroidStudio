@@ -1,0 +1,145 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout3"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ui.Variables">
+
+    <Spinner
+        android:id="@+id/menu"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/Verde_musgo"
+        android:popupBackground="@color/Verde_musgo"
+        android:spinnerMode="dropdown"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/saludo"
+        android:layout_width="210dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:text="Bienvenido:\n "
+        android:textStyle="bold"
+        android:textSize="18dp"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/menu"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <TextView
+        android:id="@+id/dispConectado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dispositivo: Sin conexión."
+        android:textStyle="bold"
+        android:layout_marginTop="40dp"
+        app:layout_constraintTop_toBottomOf="@id/saludo"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <ImageView
+        android:id="@+id/iconoHumedad"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="20dp"
+        app:layout_constraintTop_toBottomOf="@id/dispConectado"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:srcCompat="@drawable/hume"/>
+
+    <TextView
+        android:id="@+id/etiquetaHumedad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:layout_marginLeft="10dp"
+        android:text="Humedad:"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/dispConectado"
+        app:layout_constraintLeft_toRightOf="@id/iconoHumedad" />
+
+    <ProgressBar
+        android:id="@+id/progresHumedad"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="20dp"
+        android:max="100"
+        android:indeterminate="false"
+        app:layout_constraintTop_toBottomOf="@+id/dispConectado"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <ImageView
+        android:id="@+id/iconoTemperatura"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/iconoHumedad"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:srcCompat="@drawable/temp"/>
+
+    <TextView
+        android:id="@+id/etiquetaTemperatura"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="10dp"
+        android:text="Temperatura:"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/iconoHumedad"
+        app:layout_constraintLeft_toRightOf="@+id/iconoTemperatura" />
+
+    <ProgressBar
+        android:id="@+id/progresTemperatura"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="65dp"
+        android:layout_marginRight="45dp"
+        app:layout_constraintTop_toBottomOf="@+id/dispConectado"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <ImageView
+        android:id="@+id/iconoLuminosidad"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/iconoTemperatura"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:srcCompat="@drawable/luz"/>
+
+    <TextView
+        android:id="@+id/etiquetaLuminosidad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="10dp"
+        android:text="Luminosidad:"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/iconoTemperatura"
+        app:layout_constraintLeft_toRightOf="@+id/iconoLuminosidad" />
+
+    <ProgressBar
+        android:id="@+id/progresLuminosidad"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_marginTop="85dp"
+        android:layout_marginRight="65dp"
+        app:layout_constraintTop_toBottomOf="@+id/dispConectado"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+    <Button
+        android:id="@+id/botonActualizar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Actualizar"
+        android:layout_marginTop="60dp"
+        app:layout_constraintTop_toBottomOf="@id/iconoLuminosidad"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

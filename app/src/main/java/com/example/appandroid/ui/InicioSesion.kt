@@ -2,52 +2,46 @@
 package com.example.appandroid.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Button
-import android.widget.Toast
+import android.widget.EditText
+import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.appandroid.R
-import com.example.appandroid.api.Api
-import java.io.IOException
-
-import com.example.appandroid.app.SessionManager
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import kotlinx.serialization.json.JsonObject
-import kotlinx.serialization.json.JsonPrimitive
+import com.example.appandroid.app.UsuarioActivo
+import com.example.appandroid.app.SessionManager as SM
+import kotlinx.coroutines.*
 
 class InicioSesion : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
+
+
     ): View? {
         val view = inflater.inflate(R.layout.sample_inicio_sesion, container, false)
+        val USUARIO_ACTIVO = ViewModelProvider(requireActivity())[MyViewModel::class.java]
 
-        val usuario = view?.findViewById<androidx.appcompat.widget.AppCompatEditText>(R.id.Usuario)?.text
-        val contraseña = view?.findViewById<androidx.appcompat.widget.AppCompatEditText>(R.id.Contrasena)?.text
-
-        val alerta = view?.findViewById<androidx.appcompat.widget.AppCompatTextView>(R.id.Respuesta)
+        val usuario: EditText = view.findViewById(R.id.Usuario)
+        val contraseña: EditText = view.findViewById(R.id.Contrasena)
+        val alerta: TextView = view.findViewById(R.id.Respuesta)
 
         view.findViewById<Button>(R.id.BotonContinuar).setOnClickListener {
-            CoroutineScope(Dispatchers.IO).launch() {
+            CoroutineScope(Dispatchers.IO).launch {
                 try {
-                    val respuesta = SessionManager().IniciarSesion(usuario.toString(), contraseña.toString())
-                    withContext(Dispatchers.Main){
+                    val respuesta = SM().IniciarSesion(usuario.text.toString(), contraseña.text.toString())
+                    withContext(Dispatchers.Main) {
+                        val new_usuario = UsuarioActivo(respuesta?.get("rut")?.toString() ?: "", respuesta?.get("nombre")?.toString() ?: "")
+                        USUARIO_ACTIVO.setUsuario(new_usuario)
+                        findNavController().navigate(R.id.InicioSesion_to_log)
                         alerta?.text = respuesta.toString()
                     }
                 } catch (error: Exception) {
-                    withContext(Dispatchers.Main){
+                    withContext(Dispatchers.Main) {
                         alerta?.text = error.message
-                    }
-                } catch (error: IOException) {
-                    withContext(Dispatchers.Main){
-                        alerta?.text = "Error de conexión."
                     }
                 }
             }

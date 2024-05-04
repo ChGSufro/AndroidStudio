@@ -18,7 +18,7 @@ class Bienvenida : Fragment() {
         val view = inflater.inflate(R.layout.sample_bienvenida, container, false)
 
         view.findViewById<Button>(R.id.BotonIniciar).setOnClickListener {
-            findNavController().navigate(R.id.Bienvenidaa_to_InicioSesion)
+            findNavController().navigate(R.id.Bienvenida_to_InicioSesion)
         }
 
         view.findViewById<Button>(R.id.BotonRegistrar).setOnClickListener {

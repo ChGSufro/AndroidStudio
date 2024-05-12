@@ -12,7 +12,6 @@ import com.example.appandroid.conexiones.Bluetooth as BT
 
 class Conexion() : Fragment() {
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,7 +43,6 @@ class Conexion() : Fragment() {
                     }
                     "Cerrar" -> {
                         findNavController().navigate(R.id.Conexión_to_Bienvenida)
-                        USUARIO_ACTIVO.desconectarUsuario()
                     }
                 }
             }
@@ -55,21 +53,30 @@ class Conexion() : Fragment() {
 
         // Aquí se obtienen los dispositivos vinculados y se muestran en la lista
         fun cargarDispositivos() {
-            val dispositivos = BT().obtener_dispositivos_vinculados()
-            val nombresDispositivos = dispositivos.map { it.name }.toTypedArray()
-            val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_selectable_list_item, nombresDispositivos)
-            listaEmparejados.adapter = adapter
+            try {
+                val dispositivos = BT().obtener_dispositivos_vinculados()
+                val nombresDispositivos = dispositivos.map { it.name }.toTypedArray()
+                val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_selectable_list_item, nombresDispositivos)
+                listaEmparejados.adapter = adapter
+            } catch (e: Exception) {
+                Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
+            }
+
         }
 
         cargarDispositivos()
 
         listaEmparejados.setOnItemClickListener { _, _, position, _ ->
-            val dispositivo = listaEmparejados.getItemAtPosition(position).toString()
-            val dispositivoSeleccionado: BluetoothDevice? = BT().obtener_dispositivo_por_nombre(dispositivo)
-            if (dispositivoSeleccionado != null) {
-                USUARIO_ACTIVO.getUsuario()?.setDispConectado(dispositivoSeleccionado)
-                findNavController().navigate(R.id.Conexión_to_Variables)
-                Toast.makeText(context, "Conectado a $dispositivo", Toast.LENGTH_SHORT).show()
+            try {
+                val dispositivo = listaEmparejados.getItemAtPosition(position).toString()
+                val dispositivoSeleccionado: BluetoothDevice? = BT().obtener_dispositivo_por_nombre(dispositivo)
+                if (dispositivoSeleccionado != null) {
+                    USUARIO_ACTIVO.getUsuario()?.setDispConectado(dispositivoSeleccionado)
+                    findNavController().navigate(R.id.Conexión_to_Variables)
+                    Toast.makeText(context, "Conectado a $dispositivo", Toast.LENGTH_SHORT).show()
+                }
+            }catch (e: Exception) {
+                Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
             }
         }
 

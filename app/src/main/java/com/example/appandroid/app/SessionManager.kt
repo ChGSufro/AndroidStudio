@@ -1,7 +1,7 @@
 package com.example.appandroid.app
+
+import android.widget.Toast
 import com.example.appandroid.conexiones.Api
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 
@@ -19,9 +19,6 @@ class SessionManager(){
         }
         if (usuario.length > 20) {
             throw Exception("El usuario no puede tener más de 20 caracteres.")
-        }
-        if (usuario.contains(CARACTERES_BLOQUEADOS)){
-            throw Exception("El usuario no puede contener espacios.")
         }
         if (usuario.isEmpty()) {
             return false
@@ -61,13 +58,13 @@ class SessionManager(){
     }
 
     fun IniciarSesion(usuario: String, contraseña: String): JsonObject {
-        if (!checkUsuario(usuario) || !checkContraseña(contraseña)){
+        if (!checkUsuario(usuario)){
             throw Exception("Rellene todos los campos.")
         }
-        val jsonUsuario = JsonObject(mapOf("rut" to JsonPrimitive(usuario), "contraseña" to JsonPrimitive(contraseña)))
+        val jsonUsuario = JsonObject(mapOf("usuario" to JsonPrimitive(usuario), "contraseña" to JsonPrimitive(contraseña)))
         val respuesta = api.log_usuario(jsonUsuario)
-        if (respuesta["respuesta"].toString() == "Usuario no encontrado.") {
-            throw Exception("Usuario no encontrado.")
+        if (respuesta["respuesta"] !is JsonObject){
+            throw Exception("Usuario y/o contraseña incorrectos.")
         }
         return respuesta["respuesta"] as JsonObject
     }
@@ -77,11 +74,10 @@ class SessionManager(){
             throw Exception("Rellene todos los campos.")
         }
         val jsonUsuarioNuevo = JsonObject(mapOf(
-            "rut" to JsonPrimitive(usuario),
+            "usuario" to JsonPrimitive(usuario),
             "nombre" to JsonPrimitive(nombre),
             "contraseña" to JsonPrimitive(contraseña)))
         val respuesta = api.add_usuario(jsonUsuarioNuevo)
         return respuesta["respuesta"].toString()
     }
-
 }

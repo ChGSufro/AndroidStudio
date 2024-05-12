@@ -6,6 +6,7 @@ import android.view.*
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -13,6 +14,7 @@ import com.example.appandroid.R
 import com.example.appandroid.app.UsuarioActivo
 import com.example.appandroid.app.SessionManager as SM
 import kotlinx.coroutines.*
+import kotlinx.serialization.json.JsonObject
 
 class InicioSesion : Fragment() {
 
@@ -32,16 +34,15 @@ class InicioSesion : Fragment() {
         view.findViewById<Button>(R.id.BotonContinuar).setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch {
                 try {
-                    val respuesta = SM().IniciarSesion(usuario.text.toString(), contraseña.text.toString())
+                    val respuesta: JsonObject = SM().IniciarSesion(usuario.text.toString(), contraseña.text.toString())
                     withContext(Dispatchers.Main) {
-                        val new_usuario = UsuarioActivo(respuesta?.get("rut")?.toString() ?: "", respuesta?.get("nombre")?.toString() ?: "")
+                        val new_usuario = UsuarioActivo(respuesta["usuario"].toString(), respuesta["nombre"].toString())
                         USUARIO_ACTIVO.setUsuario(new_usuario)
                         findNavController().navigate(R.id.InicioSesion_to_log)
-                        alerta?.text = respuesta.toString()
                     }
                 } catch (error: Exception) {
                     withContext(Dispatchers.Main) {
-                        alerta?.text = error.message
+                        alerta.text = error.message
                     }
                 }
             }

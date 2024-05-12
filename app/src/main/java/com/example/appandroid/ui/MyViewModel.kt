@@ -3,9 +3,9 @@ import androidx.lifecycle.ViewModel
 import com.example.appandroid.app.UsuarioActivo
 
 class MyViewModel: ViewModel() {
-    private var usuario: UsuarioActivo? = null
+    private lateinit var usuario: UsuarioActivo
 
-    fun getUsuario(): UsuarioActivo? {
+    fun getUsuario(): UsuarioActivo {
         return usuario
     }
 
@@ -13,7 +13,4 @@ class MyViewModel: ViewModel() {
         this.usuario = usuario
     }
 
-    fun desconectarUsuario() {
-        this.usuario = null
-    }
 }

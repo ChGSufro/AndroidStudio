@@ -1,5 +1,5 @@
 package com.example.appandroid.conexiones
-import kotlinx.coroutines.*
+
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 import okhttp3.*
@@ -31,6 +31,29 @@ class Api {
     fun add_usuario(usuario: JsonObject): JsonObject {
         val usr = formatJson_toRequestBody(usuario)
         val request = Request.Builder().url("$URL_IP/usuarios/add").put(usr).build()
+        val response = cliente.newCall(request).execute()
+        return formatResponse_toJson(response)
+    }
+
+    //return["respuesta"] = List<JsonObject>
+    fun get_nombres_cultivos(usuario: String): JsonObject {
+        val request = Request.Builder().url("$URL_IP/get/coleccion/nombres/<$usuario>").get().build()
+        val response = cliente.newCall(request).execute()
+        return formatResponse_toJson(response)
+    }
+    fun get_datos_cultivos(usuario: String): JsonObject {
+        val request = Request.Builder().url("$URL_IP/get/coleccion/<$usuario>/<>").get().build()
+        val response = cliente.newCall(request).execute()
+        return formatResponse_toJson(response)
+    }
+    fun add_cultivo(usuario: String, cultivo: JsonObject): JsonObject {
+        val cult = formatJson_toRequestBody(cultivo)
+        val request = Request.Builder().url("$URL_IP/add/coleccion/<$usuario>").put(cult).build()
+        val response = cliente.newCall(request).execute()
+        return formatResponse_toJson(response)
+    }
+    fun delete_cultivo(usuario: String, cultivo: String): JsonObject {
+        val request = Request.Builder().url("$URL_IP/delete/coleccion/<$usuario>/<${cultivo}>").delete().build()
         val response = cliente.newCall(request).execute()
         return formatResponse_toJson(response)
     }

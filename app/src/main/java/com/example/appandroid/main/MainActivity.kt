@@ -1,6 +1,5 @@
 package com.example.appandroid.main
 
-import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -48,11 +47,13 @@ class MainActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
             BLUETOOTH_SCAN_PERMISSION_REQUEST_CODE -> {
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
+                if (grantResults.isNotEmpty() && grantResults.all { it == PackageManager.PERMISSION_GRANTED }) {
+                    // Todos los permisos fueron concedidos
                 } else {
-                    Toast.makeText(this, "La app necesita permisos especiales.", Toast.LENGTH_SHORT).show()
-                    finish()
+                    // Al menos un permiso fue denegado
+                    val deniedPermissions = permissions.filterIndexed { index, _ -> grantResults[index] != PackageManager.PERMISSION_GRANTED }
+                    Toast.makeText(this, "La app necesita los siguientes permisos: ${deniedPermissions.joinToString()}", Toast.LENGTH_SHORT).show()
+                    ActivityCompat.requestPermissions(this, permissions, BLUETOOTH_SCAN_PERMISSION_REQUEST_CODE)
                 }
                 return
             }

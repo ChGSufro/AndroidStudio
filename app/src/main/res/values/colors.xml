@@ -12,6 +12,10 @@
     <color name="gray_400">#FFBDBDBD</color>
     <color name="gray_600">#FF757575</color>
 
+
     <color name="Verde_musgo">#FF338B50</color>
     <color name="Rojo_oscuro">#FF8B0000</color>
+    <color name="humedad">#FF29B6F6</color>
+    <color name="luminosidad">#FFFFA500</color>
+    <color name="temperatura">#FF00008B</color>
 </resources>

@@ -40,4 +40,11 @@
         <attr name="exampleColor" />
         <attr name="exampleDrawable" />
     </declare-styleable>
+
+    <declare-styleable name="Control">
+        <attr name="exampleString"/>
+        <attr name="exampleDimension"/>
+        <attr name="exampleColor" />
+        <attr name="exampleDrawable" />
+    </declare-styleable>
 </resources>

@@ -1,12 +1,13 @@
 // BienvenidaFragment.kt
 package com.example.appandroid.ui
 
+import android.os.Build
 import android.os.Bundle
 import android.view.*
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -18,6 +19,7 @@ import kotlinx.serialization.json.JsonObject
 
 class InicioSesion : Fragment() {
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,8 +37,13 @@ class InicioSesion : Fragment() {
             CoroutineScope(Dispatchers.IO).launch {
                 try {
                     val respuesta: JsonObject = SM().IniciarSesion(usuario.text.toString(), contraseña.text.toString())
+                    val new_usuario = UsuarioActivo(
+                        respuesta["usuario"].toString(),
+                        respuesta["nombre"].toString(),
+                        respuesta["humedad"].toString().toFloat(),
+                        respuesta["temperatura"].toString().toFloat(),
+                        respuesta["luz"].toString().toFloat())
                     withContext(Dispatchers.Main) {
-                        val new_usuario = UsuarioActivo(respuesta["usuario"].toString(), respuesta["nombre"].toString())
                         USUARIO_ACTIVO.setUsuario(new_usuario)
                         findNavController().navigate(R.id.InicioSesion_to_log)
                     }

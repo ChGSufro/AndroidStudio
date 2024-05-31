@@ -33,6 +33,12 @@
             android:id="@+id/Conexión_to_Variables"
             app:destination="@id/Variables" />
         <action
+            android:id="@+id/Conexión_to_Estadistica"
+            app:destination="@+id/Estadistica" />
+        <action
+            android:id="@+id/Conexión_to_Control"
+            app:destination="@id/Control" />
+        <action
             android:id="@+id/Conexión_to_Bienvenida"
             app:destination="@id/Bienvenida"
             app:popUpToInclusive="true"/>
@@ -44,8 +50,49 @@
             android:id="@+id/Variables_to_Conexion"
             app:destination="@id/Conexión" />
         <action
+            android:id="@+id/Variables_to_Estadistica"
+            app:destination="@+id/Estadistica"/>
+        <action
+            android:id="@+id/Variables_to_Control"
+            app:destination="@id/Control" />
+        <action
             android:id="@+id/Variables_to_Bienvenida"
             app:destination="@id/Bienvenida"
             app:popUpToInclusive="true"/>
+
+    <fragment
+        android:id="@+id/Estadistica"
+        android:name="com.example.appandroid.ui.Estadistica"/>
+        <action
+            android:id="@+id/Estadistica_to_Conexion"
+            app:destination="@id/Conexión" />
+        <action
+            android:id="@+id/Estadistica_to_Variables"
+            app:destination="@id/Variables" />
+        <action
+            android:id="@+id/Estadistica_to_Control"
+            app:destination="@id/Control" />
+        <action
+            android:id="@+id/Estadistica_to_Bienvenida"
+            app:destination="@id/Bienvenida"
+            app:popUpToInclusive="true"/>
+
+
+    <fragment
+        android:id="@+id/Control"
+        android:name="com.example.appandroid.ui.Control"/>
+        <action
+            android:id="@+id/Control_to_Bienvenida"
+            app:destination="@id/Bienvenida"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/Control_to_Conexion"
+            app:destination="@id/Conexión" />
+        <action
+            android:id="@+id/Control_to_Variables"
+            app:destination="@id/Variables" />
+        <action
+            android:id="@+id/Control_to_Estadistica"
+            app:destination="@+id/Estadistica" />
 
 </navigation>

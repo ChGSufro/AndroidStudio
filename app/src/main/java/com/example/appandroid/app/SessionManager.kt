@@ -1,7 +1,6 @@
 package com.example.appandroid.app
 
-import android.widget.Toast
-import com.example.appandroid.conexiones.Api
+import com.example.appandroid.datos.Api
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 

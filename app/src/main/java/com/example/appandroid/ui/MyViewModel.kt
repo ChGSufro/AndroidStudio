@@ -12,5 +12,4 @@ class MyViewModel: ViewModel() {
     fun setUsuario(usuario: UsuarioActivo) {
         this.usuario = usuario
     }
-
 }
